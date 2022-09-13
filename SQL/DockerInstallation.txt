@@ -1,0 +1,11 @@
+signup to docker hub
+then verify email id
+download docker windows from docker hub
+install docker windows
+
+When you try to run docker after installation, it will fail and will give a popup.Download the wsl from the link provided in pop up.
+Once downloaded,just run the wsl to install the same.
+The same link would also provide a wsl command to be executed on powershell to make wsl2 as default.run that command as well in powershell in administrator mode
+
+Open windows powershell in administrator mode, execute the below command:
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All

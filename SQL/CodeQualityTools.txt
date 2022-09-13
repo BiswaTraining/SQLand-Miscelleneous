@@ -1,0 +1,7 @@
+PMD ,SonlarLint ,checkStyle,CPD(copy paste detector)
+
+
+Code quality check tools
+
+https://www.youtube.com/watch?v=WGFw1thosCg
+

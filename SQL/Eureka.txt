@@ -1,0 +1,4 @@
+eureka service discovery--if any change occurs in any property like port etc, then the consumer services should not have to change.The service registry takes care of this.
+
+default port-8761
+continuous monitoring of services

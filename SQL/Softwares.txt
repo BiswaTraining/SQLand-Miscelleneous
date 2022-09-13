@@ -1,0 +1,14 @@
+Fiddler
+Git
+MobaxTerm
+NodejS
+Postgres
+Postman
+SQL Express Server 2019--
+Visual Studio Code
+STS
+JDK 8
+Intellij IDEA Community
+SourceTree
+Microsoft SQL Server Management Studio 18
+Eclipse

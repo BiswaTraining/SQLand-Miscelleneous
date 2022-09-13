@@ -1,0 +1,110 @@
+4.1 Solution
+
+Create procedure usp_Insertpassenger(@input varchar(max))
+as
+begin
+IF OBJECT_ID('tempdb..#emp') IS NULL
+Begin
+create table #emp(
+Id varchar(10) not null,
+name varchar(50) not null,
+Gender varchar(10) check(gender in('Male','Female')) not null,
+DOB date not null
+)
+END
+Declare @str varchar(max);
+Declare @id varchar(10);
+Declare @name varchar(50);
+Declare @gender varchar(10);
+declare @pos1 int;
+declare @pos2 int;
+declare @pos3 int;
+declare @pos4 int;
+Declare @dob date;
+
+set @str=@input;
+set @pos1 = charindex( ',', @str)
+set @pos2 = charindex( ',', @str , @pos1+1)
+set @pos3 = charindex( ',', @str , @pos2+1)
+set @pos4 =CHARINDEX(',',REVERSE(LTRIM(RTRIM(@str)))) 
+
+set @id= SUBSTRING(@str,1,@pos1-1)
+set @name= SUBSTRING(@str,@pos1+1,@pos2-@pos1-1)
+set @gender= SUBSTRING(@str,@pos2+1,@pos3-@pos2-1)
+set @dob= SUBSTRING(@str,@pos3+1,@pos4)
+
+insert into #emp
+select @id,@name,@gender,@dob
+
+select * from #emp
+END
+
+--------------------------------------------------------------------------
+4.2 Solution
+Modify the Day 4 - Q1 to validate the below
+    A.    No duplicate entry for a passenger must be attempted to insert in table
+Alter table #emp add constraint pk_empID Primary Key(Id)
+    B.    The Age of the passenger must be between 6 to 90
+Alter table #emp add constraint ck_age check(datediff(Year,DOB,GetDate()) between 6 and 50)
+
+
+-----------------------------------------------------------------------
+5.1 Solution
+
+create function dbo.CheckPrimeNumber(@start int,@end int)
+returns @table table(num int)
+as
+begin 
+declare @I int =@start
+declare @IsPrime int=0
+declare @result int
+declare @table2 table(num int)
+while @I<=@end
+		begin
+			 declare @j int= @I-1
+			 set @IsPrime=1
+			 while @j>1
+			     begin
+					 if @I % @j=0
+						 begin
+						 set @IsPrime=0
+						 end
+			 set @j=@j-1
+                 end
+			 if @IsPrime=1
+				 begin
+				 insert into @table2 values (@I)
+				 end
+     
+ set @I=@I+1		
+		end
+		insert into @table (num) select * from @table2
+		return;
+end
+
+select * from dbo.CheckPrimeNumber(10,100)
+
+
+
+
+
+
+-----------------------------------------------------------------------------
+
+
+5.2 Solution
+alter function Production.get_ProductDetails(@CategoryID int)
+returns @table table(ProductID int,Name varchar(50),ProductNumber nvarchar(25),ProductModelID int,Size nvarchar(5),StandardCost money,style nchar(2),Color nvarchar(15),Weight decimal(8,2), ProductCategoryID int)
+as
+begin
+
+insert into @table select prd.ProductID,prd.Name,prd.ProductNumber,prd.ProductModelID,prd.Size,prd.StandardCost,prd.Style,prd.Color,prd.Weight,cat.ProductCategoryID from Production.Product as prd
+left join Production.ProductSubcategory as sub
+on prd.ProductSubcategoryID= sub.ProductSubcategoryID
+left join Production.ProductCategory as cat
+on sub.ProductCategoryID=cat.ProductCategoryID where cat.ProductCategoryID=@categoryID
+
+return;
+end
+
+select * from Production.get_ProductDetails(4)

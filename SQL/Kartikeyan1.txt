@@ -1,0 +1,7 @@
+Provides a shorthand for anonymous function
+Arrow functions preserve the context of this keyword.(lexical scope of this).
+
+tuples in typescript.
+difference between static and instance members.
+
+interfaces, abstract classes in typescript

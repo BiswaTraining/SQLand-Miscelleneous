@@ -1,0 +1,2 @@
+create an array list of employee and get all the employee id,name and age using consumer
+create a function to get all the employee by name
